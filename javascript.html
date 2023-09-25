@@ -1,0 +1,79 @@
+<html><body></body>
+<script>
+let shop = document.getElementById("shop");
+console.log(shop);
+let itemdata = [{
+    id: "1",
+    name: "Formal shirt",
+    description: "Men Slim Fit Striped Spread Collar Formal Shirt.",
+    price: "$200",
+    img: "images/image1.jpg"
+}, {
+    id: "2",
+    name: "casual shirt",
+    description: "Men Slim Fit Striped Spread Collar Formal Shirt.",
+    price: "$60",
+    img: "images/image2.webp"
+}, {
+    id: "3",
+    name: "Black shirt",
+    description: "Men Slim Fit Striped Spread Collar Formal Shirt.",
+    price: "$100",
+    img: "images/image3.webp"
+}, {
+    id: "4",
+    name: "T-shirt",
+    description: "Men Slim Fit Striped Spread Collar Formal Shirt.",
+    price: "$300",
+    img: "images/image4.webp"
+}];
+let AddToCart = [];
+let generateShop = () => {
+    return (shop.innerHTML = itemdata.map((obj) => {
+        return `<div id="${obj.id}" class="item">
+<img width="216px" height ="216px" src="${obj.img}" alt="image">
+<div class="details">
+    <h3>${obj.name}</h3><hr>
+    <p> ${obj.description}</p><br>
+    <div class="price">
+        <h2>${obj.price}</h2>
+        <div class="buttons">
+            <i class="bi bi-dash-circle-fill" onclick = removeItem(${obj.id})></i>
+            <div id="${obj.id}" class="quantity">0</div>
+            <i class="bi bi-plus-circle-fill" onclick = addItem(${obj.id})></i>
+        </div>
+    </div>
+</div>
+</div>`
+    }).join(""));
+}
+generateShop();
+
+let addItem = (id) => {
+    //console.log(AddToCart);
+    let findItem = AddToCart.find((x) => x.id === id);
+    if (findItem === undefined) {
+        AddToCart.push({ id: id, item1: 1 });
+    }
+    else {
+        findItem.item1 += 1;
+    }
+    update(id);
+    //console.log(AddToCart);
+};
+let removeItem = (id) => {
+    let findItem = AddToCart.find((x) => x.id === id);
+    if (findItem.item1 === 0) return;
+    else {
+        findItem.item1 -= 1;
+    }
+    update(id);
+    //console.log(AddToCart);
+};
+let update = (id) => {
+    let findItem = AddToCart.find((x) => x.id === id);
+    document.getElementById("${obj.id}").innerHTML = findItem.item1;
+    //console.log(findItem.item1);
+};
+</script>
+</html>

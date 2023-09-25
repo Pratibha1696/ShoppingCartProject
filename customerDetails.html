@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <form id="myForm" action="/submit.html">
+            <h1 style="color: rgb(209, 248, 36);padding:0.1875rem;background-color: rgb(117, 108, 124);">Customer
+                Details</h1>
+            <label>
+                <h2>First Name</h2>
+            </label>
+            <input type="text" id="text1" placeholder="Enter First Name(Letters Only)" required pattern="[a-zA-Z]*"
+                onkeyup="fnameValidation()" />
+            <label>
+                <h2>Last Name</h2>
+            </label>
+            <input type="text" id="text2" placeholder="Enter Last Name(Letters Only)" required pattern="[a-zA-Z]*" />
+            <label>
+                <h2>Address</h2>
+            </label>
+            <textarea id="address" name="address" rows="4" cols="25" placeholder="Enter Your Address"
+                required></textarea>
+            <label>
+                <h2>Mobile No</h2>
+            </label>
+            <input type="text" id="mobileNo" placeholder="Enter Your Number" required maxlength="10"
+                onkeyup="if(/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"><br>
+            <span id="mobError" class="error"></span><br>
+            <label>
+                <h2>Email</h2>
+            </label>
+            <input type="email" id="email" placeholder="Enter Your Email" required>
+            <label>
+                <h2>Zip Code</h2>
+            </label>
+            <input type="text" id="zipCode" placeholder="Enter Your Zip Code" required maxlength="6"
+                onkeyup="if(/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                <span id="zipError" class="error"></span><br>
+            <button onclick="window.location.href = '/cart.html';">Back</a></button>
+            <button type="submit" value="Submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        function validate() {
+            let mobno = document.getElementById("mobileNo");
+            let zipcode = document.getElementById("zipCode");
+            document.getElementById("mobError").textContent = "";
+            document.getElementById("zipError").textcontent = "";
+            let isValid = true;
+            if (mobno.value.length !== 10) {
+                document.getElementById("mobError").textContent = "Invalid Mobile Number";
+                document.getElementById("mobError").style.color = "red";
+                isValid = false;
+            }
+            if(zipcode.value.length !== 6){
+                document.getElementById("zipError").textContent = "ZipCode must be of 6 digit";
+                document.getElementById("zipError").style.color = "red";
+                isValid = false;
+            }
+            return isValid;
+        };
+        var form = document.getElementById('myForm');
+        form.addEventListener('submit', function (event) {
+            if (!validate()) {
+                event.preventDefault(); // Prevent form submission if it's not valid value content
+            }
+        });
+        function fnameValidation() {
+            let firstname = document.getElementById("text1");
+            let lastname = document.getElementById("text2");
+            let zipc = document.getElementById("zipCode");
+            if (firstname.value.length === 1) {
+                let res = firstname.value.toUpperCase();
+                document.getElementById("text1").value = res;
+            }
+            if (lastname.value.length === 1) {
+                let res = lastname.value.toUpperCase();
+                document.getElementById("text2").value = res;
+            }
+        }
+    </script>
+</body>
+
+</html>
